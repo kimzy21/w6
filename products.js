@@ -6,7 +6,7 @@ let products = [
         title:"Cat Food 25 lb bag",
         description:"Irresisitible cat food for your cat",
         price: 20.00,
-        image: "dancing.png",
+        image: "image/dancing.png",
         availableInventory: 3,
         rating:3
     },

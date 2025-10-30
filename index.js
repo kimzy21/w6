@@ -6,10 +6,10 @@ let app = express();
 
 app.use(cors());
 
-app.use("./image", express.static("/image"));
+app.use("./image", express.static("./image"));
 
 //connect to products.js
-let myProduct = require('/products.js');
+let myProduct = require('./products');
 
 //middleware funct
 app.use((req, res, next) => {
