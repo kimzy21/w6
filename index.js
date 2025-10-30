@@ -6,14 +6,14 @@ let app = express();
 
 app.use(cors());
 
-app.use("./image", express.static("./image"));
+app.use("/image", express.static(path.join(__dirname, "image")));
 
 //connect to products.js
 let myProduct = require('./products');
 
 //middleware funct
 app.use((req, res, next) => {
-    console.log("In comes a requestto: " + req.url);
+    console.log("In comes a request to: " + req.url);
     next();
 });
 
@@ -33,8 +33,15 @@ app.put("/", function(req, res) {
     res.send("Ok, let's change an element");
 });
 
-app.delete("/", function(req, res) {
-    res.send("Are you sure??? Ok, let's delete a record");
+app.delete("/collections/products/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const index = myProduct.findIndex(p => p.id === id);
+    if (index !== -1) {
+        const deleted = myProduct.splice(index, 1);
+        res.json({ message: "Product deleted", deleted });
+    } else {
+        res.status(404).json({ message: "Product not found" });
+    }
 });
 
 app.use((req, res) => {
