@@ -6,6 +6,9 @@ let app = express();
 
 app.use(cors());
 
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 app.use("/image", express.static(path.join(__dirname, "image")));
 
 //connect to products.js
@@ -25,8 +28,21 @@ app.get("/collections/products", (req, res) => {
     res.json(myProduct);
 });
 
-app.post("/", function(req, res) {
-    res.send("a POST request? Let's create a new element");
+app.post("/collections/products", (req, res) => {
+    const newProduct = req.body;
+
+    // Optional: add a unique id if not provided
+    if (!newProduct.id) {
+        newProduct.id = myProduct.length
+            ? myProduct[myProduct.length - 1].id + 1
+            : 1001;
+    }
+
+    myProduct.push(newProduct);
+    res.status(201).json({
+        message: "Product added successfully",
+        product: newProduct
+    });
 });
 
 app.put("/", function(req, res) {
