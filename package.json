@@ -1,0 +1,19 @@
+{
+  "name": "w6",
+  "version": "1.0.0",
+  "description": "for testing before using in project",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kimzy21/w6.git"
+  },
+  "author": "Kimberly Alexya Ramasamy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kimzy21/w6/issues"
+  },
+  "homepage": "https://github.com/kimzy21/w6#readme"
+}
