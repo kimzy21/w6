@@ -1,0 +1,47 @@
+var express = require("express");
+const cors = require("cors");
+const path = require("path");
+
+let app = express();
+
+app.use(cors());
+
+app.use("./image", express.static("/image"));
+
+//connect to products.js
+let myProduct = require('/products.js');
+
+//middleware funct
+app.use((req, res, next) => {
+    console.log("In comes a requestto: " + req.url);
+    next();
+});
+
+app.get("/", (req, res) => {
+    res.send("Welcome to out homepage");
+});
+
+app.get("/collections/products", (req, res) => {
+    res.json(myProduct);
+});
+
+app.post("/", function(req, res) {
+    res.send("a POST request? Let's create a new element");
+});
+
+app.put("/", function(req, res) {
+    res.send("Ok, let's change an element");
+});
+
+app.delete("/", function(req, res) {
+    res.send("Are you sure??? Ok, let's delete a record");
+});
+
+app.use((req, res) => {
+    res.status(404).send("Resource not found");
+}); //always at the end
+
+//start server
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
